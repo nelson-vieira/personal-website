@@ -411,9 +411,45 @@ Each time you reboot, you'll have to enter your passphrase. But you only have to
 
 From a [Microsoft dev blog][5].
 
+# GitHub
+
+## remove github-pages from Environments in GitHub repository
+
+
+There doesn't seem to be UI for it, but you can do it using the GitHub API.
+
+You should probably disconnect GitHub and Heroku before doing this.
+
+First, go to your GitHub account settings, then developer settings, then personal access tokens. Create a new token that has repo_deployments allowed. After it's generated, save the hexadecimal token, you'll need it for the upcoming API requests.
+
+For these examples I'll assume that your username is $aaaa and your repo name is $bbbb and your access token is $tttt. Replace these with your actual username and repo name and access token. Or just use shell variables to store the actual values which will let you paste the code blocks directly.
+
+First, list all the deployments on your repo:
+
+curl https://api.github.com/repos/$aaaa/$bbbb/deployments
+
+Each deployment has an id integer. Note it, and replace $iiii in the upcoming code blocks with that ID. Or create another shell variable for it.
+
+Now you have to create an "inactive" status for that deployment:
+
+curl https://api.github.com/repos/$aaaa/$bbbb/deployments/$iiii/statuses -X POST -d '{"state":"inactive"}' -H 'accept: application/vnd.github.ant-man-preview+json' -H "authorization: token $tttt"
+
+And now you can delete the deployment forever:
+
+curl https://api.github.com/repos/$aaaa/$bbbb/deployments/$iiii -X DELETE -H "authorization: token $tttt"
+
+If you have multiple deployments, send the first request to see all the deployments that remain, and then you can delete those too if you want.
+
+After you delete all the deployments, the environments button on the GitHub repo will disappear.
+
+Information sourced from the GitHub deployments documentation and the GitHub oauth documentation. This worked for me.
+
+https://stackoverflow.com/a/61272173/6569950
+
 
 [1]: https://www.tecmint.com/disable-root-login-in-linux/
 [2]: https://askubuntu.com/a/306130
 [3]: https://www.haveiplayedbowie.today/blog/posts/secure-localhost-with-mkcert/
 [4]: https://stackoverflow.com/questions/24611640/curl-60-ssl-certificate-problem-unable-to-get-local-issuer-certificate
 [5]: https://devblogs.microsoft.com/commandline/sharing-ssh-keys-between-windows-and-wsl-2/
+[6]: https://stackoverflow.com/a/61272173/6569950
