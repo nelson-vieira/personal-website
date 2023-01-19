@@ -1,7 +1,7 @@
 ---
 title: "Blog - What I have learned"
 author: "Nelson Vieira"
-date: "03/01/2022"
+date: "19/01/2023"
 ---
 
 # Linux
@@ -446,6 +446,47 @@ Information sourced from the GitHub deployments documentation and the GitHub oau
 
 https://stackoverflow.com/a/61272173/6569950
 
+# Latex
+
+## Stop and start `enumerate`
+
+\newcounter{myenumi}
+\setcounter{myenumi}{0}
+
+\newenvironment{myenumerate}{
+\setcounter{myenumi}{0}
+\begin{enumerate}
+\setcounter{enumi}{\value{myenumi}}
+}{
+\setcounter{myenumi}{\value{enumi}}
+\end{enumerate}
+}
+
+\newenvironment{continuemyenumerate}{
+\begin{enumerate}
+\setcounter{enumi}{\value{myenumi}}
+}{
+\setcounter{myenumi}{\value{enumi}}
+\end{enumerate}
+}
+
+Then I do
+
+\begin{myenumerate}
+   \item this is item 1
+   \item this is item 2
+\end{myenumerate}
+Here is some text that I don't want to be in my list.
+\begin{continuemyenumerate}
+   \item this is item 3
+\end{continuemyenumerate}
+I could repeat this for more items if I wanted.
+
+\begin{myenumerate}
+\item This is back to item 1
+\end{myenumerate}
+
+https://tex.stackexchange.com/a/230004
 
 [1]: https://www.tecmint.com/disable-root-login-in-linux/
 [2]: https://askubuntu.com/a/306130
