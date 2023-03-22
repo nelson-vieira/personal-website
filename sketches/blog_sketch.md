@@ -411,6 +411,230 @@ Each time you reboot, you'll have to enter your passphrase. But you only have to
 
 From a [Microsoft dev blog][5].
 
+## Adding Flutter to WSL
+
+### Installing Flutter
+
+Let's install Flutter on our newly operational Ubuntu system. In your terminal, make a Development folder.
+
+```
+mkdir Development
+```
+
+Then, go to the [Flutter installation page](https://docs.flutter.dev/get-started/install/linux#install-flutter-manually) and download the tar file to get started.
+
+It is important to note that you will only be able to download the file in the Windows Downloads folder, but later on, we can enter our terminal and extract the file in the Development folder we just created in Ubuntu.
+
+This is possible because the Ubuntu side considers Disk C (the disk where all Windows content is) a mounted drive, which means we can access all Windows side files in the /mnt folder. For example, getting to the Downloads folder on Windows through the terminal would look like this: `/mnt/c/Users/your-username/Downloads`.
+
+To extract the Flutter tar file out of the Downloads folder in Windows into the Development folder in Ubuntu, enter your terminal and navigate into the Development folder:
+
+```
+cd Development
+```
+
+Then run the below command:
+
+```
+tar xf /mnt/c/Users/your-username/Downloads/flutter_linux_your-flutter-version-stable.tar.xz
+```
+
+Once the folder is extracted, add Flutter into your PATH by editing your shell's rc file. If you use Bash, run sudo nano $HOME/.bashrc, or if you use ZSH, run sudo nano $HOME/.zshrc and enter your password to edit your file.
+
+Navigate to the bottom of the file and add the path where your Flutter folder is found. In this tutorial, Flutter is saved in the Development folder meaning our path will look like the below:
+
+```
+export PATH="$PATH:$HOME/Development/flutter/bin"
+```
+
+Save and exit your file and then run the below command to refresh your terminal and implement the changes:
+
+```
+source $HOME/.<rc file>
+```
+
+You can then run which flutter to confirm that the Flutter command now works in your terminal. If there are no errors, you can run the below command to make sure everything is working as it should:
+
+```
+flutter doctor
+```
+
+This will show a checklist that indicates what is working fine and what still needs installation. The checklist will show that we need Android Studio and Android SDKs installed next.
+
+### Install Android Studio
+
+We will install Android Studio directly to our Ubuntu side. Go to the terminal in the home directory and create a Downloads directory.
+
+```
+mkdir Downloads
+```
+
+Go to the [Android Studio downloads page](https://developer.android.com/studio/#downloads) and select the Linux platform.
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--kvNTC6qq--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0h79jl8vp99eo1doehe2.png">
+Android Studio downloads page
+
+It will open a popup for you to accept Android's terms and conditions. Scroll to the bottom, accept the terms and conditions, and then right-click the Download button and copy the download link.
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--TsRSQJfy--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/ai3i09xebs84i8415xk0.png">
+The picture shows a popup that opens to accept Android's terms and conditions and start the Android Studio download
+
+In your terminal, go to your newly created Downloads folder and type the wget command followed by the download link you just copied to get the Android Studio tar file:
+
+```
+wget android-studio-download-link
+```
+
+When the download has finished, navigate to /usr/local/ and extract the Android Studio tar file which will create an android-studio folder for your user profile:
+
+```
+cd /usr/local/  
+tar xf ~/Downloads/android-studio-version-number-linux.tar.gz
+```
+
+Still inside the `/usr/local` directory, run `android-studio/bin/studio.sh` to launch Android Studio.
+
+The first time you run Android Studio, an error about not being able to find SDKs may pop up. That error can be ignored because SDKs will be installed later.
+
+When the installation guide comes up, you may choose to do the default installation or the custom installation that allows you to select file locations for the SDK. Accept all the prompts or select a location for the SDK and other folders and click the Finish button when done.
+
+After Android Studio has installed the SDK and other core files, click the More Actions button on the application that opens up and select SDK Manager.
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--k7NUuuyP--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/lxqajh8a41ofe7uiy63b.png">
+This picture shows how to get to the SDK Manager once Android Studio is fully installed
+
+A page will open up where you can install the latest SDK Command-Line tools and Google Play services for our virtual devices.
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--3Xtqdp9m--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/rxqjwqp50xg19tmecg09.png">
+The picture shows SDK Manager
+
+The next stage is to create a virtual device to test our Flutter app.
+
+If you try creating a virtual device right away, you will probably get an error about needing `/dev/kvm` installed before you can proceed. Learn about KVM and how to fix this error [here](https://www.ahmedbouchefra.com/dev-kvm-not-found-device-permission-denied-errors-linux-ubuntu-20-04-19-04/#:~:text=After%20enabling%20KVM%2C%20you%E2%80%99ll%20likely%20have%20another%20error,and%20run%20the%20following%20command%20to%20install%20qemu-kvm%3A).
+
+Once you have installed KVM from the link above, you can proceed to create a virtual device. Cancel the SDK Manager if it is still open and click the More Actions button inside the original Android Studio window. Then click the Virtual Device Manager to start creating a virtual device.
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--NHS9LS_d--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dzxfjufjfucjelu79wex.png">
+This picture shows how to get to the virtual device manager
+
+Once the Virtual Device Manager opens, click the Create Device button and select a device you would like to use. For this tutorial, we will use a Pixel 2.
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--husyaRux--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/o5ou0vmrcrz8nujag30j.png">
+Picture shows a list of devices available for usage
+
+Click Next and select an Android version to download and use on the virtual device.
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--QdB_MMjJ--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/lgtedni8l5rxg6xximmm.png">
+Picture shows a list of Android versions to choose to attach to the emulator
+
+When you have downloaded and selected your preferred Android version, click Next and choose a name for your device. You can leave the default name or name it something else, and you can make as many different virtual devices as you need to.
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--2ebv31oE--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/a6fvji3lusijqki0xscj.png">
+The picture shows the page where the emulator name can be changed
+
+Click Finish to complete the creation of the virtual device, and click the green play button to launch it.
+
+Run `flutter doctor` again, and this time, every checkbox should be ticked, which means we have everything we need to get started with Flutter.
+
+### Coding Our Flutter App in Visual Studio Code
+
+Next, we need to create a Flutter app and set up a code editor like Visual Studio Code (VS Code) so that we can begin coding our Flutter app.
+
+### Flutter with VS Code
+
+We need to install extensions that can help with Flutter development. Install the [Flutter](https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter) and [Dart](https://marketplace.visualstudio.com/items?itemName=Dart-Code.dart-code) extensions to get code snippets and Flutter support.
+
+We can also install an emulator extension that allows us to effortlessly run our installed Android emulators without having to open Android Studio every single time, as that can be very slow.
+
+Close Android Studio and the virtual device we opened earlier and install the [Android iOS Emulator](https://marketplace.visualstudio.com/items?itemName=DiemasMichiels.emulate) extension which will make emulator opening quick and easy.
+
+Once the extension is installed, we need to give it the path to our emulator location so that it knows where to find our emulators.
+
+Enter your VS Code settings by pressing `Ctrl + ,` on your keyboard and click Extensions on the left side of the screen. Once the list of extensions opens up, click Emulator Configuration to open the settings for the emulator.
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--TGVpJcOl--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/add9dtvreop93lst8vwa.png">
+Emulator extension settings
+
+Fill in the Emulator: Emulator Path Linux text field with the path to your emulator inside the SDK folder. If you followed this tutorial, the path would be like below, but put the path that applies to you:
+
+```
+~/Android/Sdk/emulator
+```
+
+Cancel the Settings page and press Ctrl + Shift + e on your keyboard to run the extension.
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--8TTxHQNA--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tsuv9jckk4dvdo5an22p.png">
+Picture shows the running emulator extension
+
+Click View Android Emulators, and it will show a list of installed emulators in your system. Select the one you wish to use and it will open up, ready to be used without opening Android Studio.
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--rXM_Wup---/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/20qvvsm3vu3dz91epoiw.png">
+Picture shows an emulator list
+
+### Running the Flutter app
+
+After starting VS Code on the Flutter project root folder you can open the app in your emulator, go to the terminal under your project and type `flutter run`.
+
+You can make changes to the app in VS Code, and those changes can be viewed instantly by pressing either `r` or `R` in the terminal.
+
+<img src="https://res.cloudinary.com/practicaldev/image/fetch/s--ENnRrxVo--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/u533ks0u7xuu3pnt6l14.png">
+
+From [DEV by Maria Situmbeko][7].
+
+## Fix /dev/kvm is Not Found and Device Permission Denied Errors on Linux/Ubuntu 20.04/19.04
+
+When working with Android SDK and Android Studio to develop mobile apps on your Linux Ubuntu 20.04, you often need to use emulators to test your apps. In this case, you will need to use an AVD (Android Virtual Device) to create a new device, but sometimes, you'll encounter problems when creating new virtual devices with the `/dev/kvm is not found` and `/dev/kvm` device permission denied error messages.
+
+### What's KVM and How to Enable It?
+
+KVM stands for Kernel-based Virtual Machine and it's a full virtualization solution for Linux on x86 hardware containing virtualization extensions (Intel VT or AMD-V).
+
+### Solving `/dev/kvm is not found` Error
+
+You need to enable KVM, from the BIOS by pressing F1 key before the system boot. Next, go to the Security tab and enable Intel Virtualization Technology and Intel VT-d Feature. Save the new settings by pressing F10. Finally, exit and restart your computer.
+
+### Solving `/dev/kvm device permission denied` Error
+
+After enabling KVM, you'll likely have another error message that says `/dev/kvm device permission denied`
+
+To fix this error. you need to install `qemu-kvm` and add your username to the kvm group.
+
+Head over to your terminal and run the following command to install qemu-kvm:
+
+```
+sudo apt install qemu-kvm
+```
+
+Next, you need to add the user your-username to the kvm group using the following command:
+
+```
+sudo adduser username kvm
+```
+
+Next, in some cases, you also need to run the following command:
+
+```
+sudo chown username /dev/kvm
+```
+
+You can get your username using the following command:
+
+```
+whoami
+```
+
+Now, you can verify if your username is added to kvm group using the following command:
+
+```
+grep kvm /etc/group
+```
+
+If your user name is added. Finish by restarting your Ubuntu 20 system.
+
+Next, follow the steps tp create a new AVD, to start using your Android emulator.
+
+From [Ahmed Bouchefra's blog][8].
+
 # GitHub
 
 ## remove github-pages from Environments in GitHub repository
@@ -494,3 +718,5 @@ https://tex.stackexchange.com/a/230004
 [4]: https://stackoverflow.com/questions/24611640/curl-60-ssl-certificate-problem-unable-to-get-local-issuer-certificate
 [5]: https://devblogs.microsoft.com/commandline/sharing-ssh-keys-between-windows-and-wsl-2/
 [6]: https://stackoverflow.com/a/61272173/6569950
+[7]: https://dev.to/mariasitumbeko/creating-a-flutter-app-on-windows-with-wsl2-3an0
+[8]: https://www.ahmedbouchefra.com/dev-kvm-not-found-device-permission-denied-errors-linux-ubuntu-20-04-19-04/#:~:text=After%20enabling%20KVM%2C%20you%E2%80%99ll%20likely%20have%20another%20error,and%20run%20the%20following%20command%20to%20install%20qemu-kvm%3A
