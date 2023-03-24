@@ -411,6 +411,21 @@ Each time you reboot, you'll have to enter your passphrase. But you only have to
 
 From a [Microsoft dev blog][5].
 
+## Accessing a WSL 2 distribution from your local area network (LAN)
+
+Generic command:
+
+```
+netsh interface portproxy add v4tov4 listenport=8080 listenaddress=192.168.1.1 connectport=80 connectaddress=172.168.101.100
+```
+From [WSL documentation][9].
+
+Using the following command it will automatically get both the IP address of the main windows machine and the WSL. You just need to adjust the `connectport` to connect to the right service you want to expose to the LAN.
+
+```
+netsh interface portproxy add v4tov4 listenport=8000 listenaddress=netsh interface portproxy add v4tov4 listenport=8000 listenaddress=192.168.1.18 connectport=80 connectaddress=$($(wsl hostname -I).Trim()) connectport=3000 connectaddress=$($(wsl hostname -I).Trim());
+```
+
 ## Adding Flutter to WSL
 
 ### Installing Flutter
@@ -720,3 +735,4 @@ https://tex.stackexchange.com/a/230004
 [6]: https://stackoverflow.com/a/61272173/6569950
 [7]: https://dev.to/mariasitumbeko/creating-a-flutter-app-on-windows-with-wsl2-3an0
 [8]: https://www.ahmedbouchefra.com/dev-kvm-not-found-device-permission-denied-errors-linux-ubuntu-20-04-19-04/#:~:text=After%20enabling%20KVM%2C%20you%E2%80%99ll%20likely%20have%20another%20error,and%20run%20the%20following%20command%20to%20install%20qemu-kvm%3A
+[9]: https://docs.microsoft.com/en-us/windows/wsl/networking
