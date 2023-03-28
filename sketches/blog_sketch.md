@@ -423,7 +423,13 @@ From [WSL documentation][9].
 Using the following command it will automatically get both the IP address of the main windows machine and the WSL. You just need to adjust the `connectport` to connect to the right service you want to expose to the LAN.
 
 ```
-netsh interface portproxy add v4tov4 listenport=8000 listenaddress=netsh interface portproxy add v4tov4 listenport=8000 listenaddress=192.168.1.18 connectport=80 connectaddress=$($(wsl hostname -I).Trim()) connectport=3000 connectaddress=$($(wsl hostname -I).Trim());
+netsh interface portproxy add v4tov4 listenport=8000 listenaddress=(Get-CimInstance -Class Win32_NetworkAdapterConfiguration).Where{$_.IPAddress}.foreach{$_.IPAddress[0]} connectport=3000 connectaddress=$($(wsl hostname -I).Trim())
+```
+
+To delete previous proxy connection:
+
+```
+netsh interface portproxy delete v4tov4 listenport=8000 listenaddress=(Get-CimInstance -Class Win32_NetworkAdapterConfiguration).Where{$_.IPAddress}.foreach{$_.IPAddress[0]}
 ```
 
 ## Adding Flutter to WSL
