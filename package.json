@@ -12,7 +12,8 @@
 		"test:unit": "vitest",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
 		"format": "prettier --plugin-search-dir . --write .",
-        "gh-pages": "npm run build && npx gh-pages --dotfiles --no-push -d build && git checkout gh-pages && git commit -S -s -m 'Updates' && git push -f origin gh-pages && git checkout master && npm install"
+        "gh-pages": "npm run build && npx gh-pages --dotfiles --no-push -d build"
+        // && git checkout gh-pages && git commit -S -s -m 'Updates' && git push -f origin gh-pages && git checkout master && npm install"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
