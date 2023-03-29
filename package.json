@@ -1,5 +1,5 @@
 {
-	"name": "nelsonvieira",
+	"name": "personal-website",
 	"version": "0.0.1",
 	"private": true,
 	"scripts": {
@@ -24,6 +24,7 @@
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
+		"gh-pages": "^5.0.0",
 		"postcss": "^8.4.21",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
@@ -35,5 +36,6 @@
 		"vite": "^4.2.0",
 		"vitest": "^0.25.3"
 	},
-	"type": "module"
+	"type": "module",
+    "gh-pages": "npm run build && npx gh-pages -d build"
 }
