@@ -656,6 +656,53 @@ Next, follow the steps tp create a new AVD, to start using your Android emulator
 
 From [Ahmed Bouchefra's blog][8].
 
+## Enabling nested virtualization on WSL2 on Windows 11
+
+On WSL2 (Windows 11), nested virtualization is supported but not enabled by default. To enable it, you must:
+
+    Add yourself to the kvm group
+    Change the default group of /dev/kvm
+    Enable nested virtualization in /etc/wsl.conf
+    Restart WSL
+
+1. Adding yourself to the kvm group:
+
+This one is easy:
+
+```
+sudo usermod -a -G kvm ${USER}
+```
+
+2. Change the default group of /dev/kvm
+
+This is also easy, but to make it stick across reboots and upgrades, add this section to your /etc/wsl.conf file:
+
+```
+[boot]
+command = /bin/bash -c 'chown -v root:kvm /dev/kvm && chmod 660 /dev/kvm'
+```
+
+3. Enable nested virtualization
+
+You don't need to recompile your WSL distribution to enable nested virtualization, just add this section to your /etc/wsl.conf:
+
+```
+[wsl2]
+nestedVirtualization=true
+```
+
+4. Restart WSL
+
+You can either restart Windows, or close all of your WSL terminal windows and issue this command in Powershell, CMD, or Windows Run menu (Windows+R)
+
+```
+wsl.exe --shutdown
+```
+
+The next time you open a terminal, WSL will start with the new options and nested virtualization will work. More details about [enabling nested virtualization can be found here](https://www.paralint.com/2022/11/find-new-modified-and-unversioned-subversion-files-on-windows).
+
+From [Guillaume's answer on SO][10].
+
 # GitHub
 
 ## remove github-pages from Environments in GitHub repository
@@ -742,3 +789,4 @@ https://tex.stackexchange.com/a/230004
 [7]: https://dev.to/mariasitumbeko/creating-a-flutter-app-on-windows-with-wsl2-3an0
 [8]: https://www.ahmedbouchefra.com/dev-kvm-not-found-device-permission-denied-errors-linux-ubuntu-20-04-19-04/#:~:text=After%20enabling%20KVM%2C%20you%E2%80%99ll%20likely%20have%20another%20error,and%20run%20the%20following%20command%20to%20install%20qemu-kvm%3A
 [9]: https://docs.microsoft.com/en-us/windows/wsl/networking
+[10]: https://serverfault.com/a/1115773
