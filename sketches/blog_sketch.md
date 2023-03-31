@@ -705,6 +705,191 @@ The next time you open a terminal, WSL will start with the new options and neste
 
 From [Guillaume's answer on SO][10].
 
+## Setting up Flutter natively with WSL2, VS Code & Hot-Reload 🔥
+
+Since Microsoft integrated WSL (and especially WSL2) into Windows 10 - we, the developers - went crazy about it. It allows us to integrate our favorite Linux tools into our everydays development routines.
+
+Working on web applications in PHP, NodeJS, etc… became a breeze.
+
+Unfortunately, it wasn't possible to integrate Flutter development into this breezy workflow - not until now! In this post, I'm going to show you exactly what to do, and I will explain some things along the lines why you need them, etc.
+What we gonna do?
+
+- Install Java JDK, basically a one-liner
+- Install Android SDK, which at first looks crazy, but could also fit into one line 😛
+- Install Flutter SDK
+- Setup the necessary ENV variables
+- Connect a mobile device with ADB
+
+Installation
+
+We need to download some zip-files, extract them, put them into their locations and eventually reference their executables in the $PATH environment variable.
+
+### 1. Java JDK
+
+This one is pretty simple and self explaining.
+
+```shell
+WSL2 Linux
+sudo apt update && sudo apt install default-jdk
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export PATH=$PATH:$JAVA_HOME/bin
+```
+
+### 2. Android SDK
+Command line tools
+
+These are crucial, since they come with the sdkmanager which we'll use to install all the necessery tools and SDKs we need in the future.
+
+```shell
+WSL2 Linux
+mkdir -p ~/Android/Sdk/cmdline-tools
+wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip -O latest.zip
+unzip latest.zip
+mkdir -p ~/Android/Sdk/cmdline-tools
+mv cmdline-tools ~/Android/Sdk/cmdline-tools/latest
+rm -rf latest.zip
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+sdkmanager
+```
+
+If everything went well, sdkmanager should output its version, which is, by the time of writing, 3.0
+Plattform tools
+
+Next thing we need, are the platform-tools which include adb. As you may've guessed, we'll use adb later to connect our devices. We get these very simply via the sdkmanager.
+
+```shell
+WSL2 Linux
+sdkmanager --install "platform-tools"
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+adb
+```
+
+If it's successfull, adb should output something along these lines.
+
+```shell
+WSL2 Linux
+Android Debug Bridge version 1.0.41
+Version 30.0.5-6877874
+Installed as ~/Android/Sdk/platform-tools/adb
+```
+
+Build tools and Android images
+
+As the last step of our Android setup, we grab the build-tools and images for Android 29, or whatever build you need. And finally we need to accept all the licenses for these.
+
+```shell
+WSL2 Linux
+sdkmanager --install "system-images;android-29;google_apis;x86" "platforms;android-29" "build-tools;29.0.3"
+sdkmanager --licenses
+```
+
+### 3. Flutter SDK
+
+Our final installation step is to grab the Flutter SDK.
+
+```shell
+WSL2 Linux
+wget https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_1.22.5-stable.tar.xz -O flutter_latest.tar.xz
+tar xf flutter_latest.tar.xz
+mkdir ~/Flutter
+mv flutter ~/Flutter/Sdk
+export FLUTTER_ROOT=$HOME/Flutter/Sdk
+export PATH=$FLUTTER_ROOT/bin:$PATH
+flutter --version
+```
+
+If everything went well, you should get Flutter's version
+
+```shell
+WSL2 Linux
+Flutter 1.22.5 • channel stable • https://github.com/flutter/flutter.git
+ Framework • revision 7891006299 (7 weeks ago) • 2020-12-10 11:54:40 -0800
+ Engine • revision ae90085a84
+ Tools • Dart 2.10.4
+```
+
+WSL2 inherits the ENV variables from Windows. So if you already have an ENV for flutter, sdkmanager, etc… set in Windows, your WSL2 distro won't recognize the new paths. So, ensure that the tools point to the right destinations. If they do not, just adapt your export commands to append/prepend the paths.
+
+```shell
+WSL2 Linux
+which sdkmanager
+which adb
+# these should point to ~/Android/Sdk/...
+
+which flutter
+which dart
+# these should point to ~/Flutter/Sdk/bin
+```
+
+VS Code
+
+Open up VS Code with a new Remote WSL window. Once opened, install the Dart Code extensions for Flutter and Dart.
+
+The Dart Code extension uses the `FLUTTER_ROOT` env to detect the flutter and dart binaries. So if everything went good in the installation process, there's nothing to configure there.
+
+Now, two things have happend. First, you should see a "No Device" message in the right part of the status bar. Which is a good sign 👍 (for now)
+No device
+
+And when you hit `Ctrl + Shift + P`, you should see the Flutter commands.
+
+Now, go ahead and create your first `New Application Project` so that we have something to test on in the next and final step, when we connect our first device.
+
+<img src="https://dnmc.in/wp-content/uploads/2021/01/image-1.png" alt="`Ctrl + Shift + P` shows Flutter commands">
+
+Connecting your device
+
+Finally we have everything ready, the only thing we need is a device to test our Flutter project on.
+
+For now, unfortunately it's not possible to simply plugin in your phone via USB and have it connected to WSL2, but fortunately adb allows us to debug over WiFi, and that's what we're going to do. For that, connect your phone via USB and open up PowerShell.
+It's a small step in Windows adb…
+
+```shell
+PowerShell
+adb devices
+adb tcpip 5555
+
+# you may need to run adb-kill server and the two commands again
+
+List of devices attached
+ 1234567       device
+```
+
+… but a big step in WSL2
+
+Now go back to WSL2 and enter the following
+
+```shell
+WSL2 Linux
+adb connect <IP-of-your-phone>
+connected to <IP-of-your-phone>:5555
+
+adb devices
+List of devices attached
+<IP-of-your-phone>:5555       device
+
+# you may need to run adb-kill server and the two commands again
+```
+
+To verify that flutter also has access to the device, run the following command.
+
+```shell
+WSL2 Linux
+flutter devices
+1 connected device:
+ ONEPLUS A6013 (mobile) • <IP-of-your-phone>:5555 • android-arm64 • Android 10 (API 29)
+```
+
+And, our good old "No-device-friend" VS Code should've recognized the device too.
+
+<img src="https://dnmc.in/wp-content/uploads/2021/01/image-5-1024x699.png" alt="VS Code working with Flutter ♥">
+
+You can now debug and write your Flutter applications under WSL2, use your favorite Linux toolkit for CI/CD and do whatever you please.
+
+If you have further questions, let me know in the comments. I hope you enjoyed it.
+
+From [Adis Durakovic's blog DNMC][11].
+
 # GitHub
 
 ## remove github-pages from Environments in GitHub repository
@@ -792,3 +977,4 @@ https://tex.stackexchange.com/a/230004
 [8]: https://www.ahmedbouchefra.com/dev-kvm-not-found-device-permission-denied-errors-linux-ubuntu-20-04-19-04/#:~:text=After%20enabling%20KVM%2C%20you%E2%80%99ll%20likely%20have%20another%20error,and%20run%20the%20following%20command%20to%20install%20qemu-kvm%3A
 [9]: https://docs.microsoft.com/en-us/windows/wsl/networking
 [10]: https://serverfault.com/a/1115773
+[11]: https://dnmc.in/2021/01/25/setting-up-flutter-natively-with-wsl2-vs-code-hot-reload/
