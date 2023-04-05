@@ -728,8 +728,9 @@ We need to download some zip-files, extract them, put them into their locations 
 
 This one is pretty simple and self explaining.
 
+    On WSL2 Linux
+
 ```shell
-WSL2 Linux
 sudo apt update && sudo apt install default-jdk
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export PATH=$PATH:$JAVA_HOME/bin
@@ -740,8 +741,9 @@ Command line tools
 
 These are crucial, since they come with the sdkmanager which we'll use to install all the necessery tools and SDKs we need in the future.
 
+    On WSL2 Linux
+
 ```shell
-WSL2 Linux
 mkdir -p ~/Android/Sdk/cmdline-tools
 wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip -O latest.zip
 unzip latest.zip
@@ -758,8 +760,9 @@ Plattform tools
 
 Next thing we need, are the platform-tools which include adb. As you may've guessed, we'll use adb later to connect our devices. We get these very simply via the sdkmanager.
 
+    On WSL2 Linux
+
 ```shell
-WSL2 Linux
 sdkmanager --install "platform-tools"
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 adb
@@ -767,8 +770,9 @@ adb
 
 If it's successfull, adb should output something along these lines.
 
+    On WSL2 Linux
+
 ```shell
-WSL2 Linux
 Android Debug Bridge version 1.0.41
 Version 30.0.5-6877874
 Installed as ~/Android/Sdk/platform-tools/adb
@@ -778,8 +782,9 @@ Build tools and Android images
 
 As the last step of our Android setup, we grab the build-tools and images for Android 29, or whatever build you need. And finally we need to accept all the licenses for these.
 
+    On WSL2 Linux
+
 ```shell
-WSL2 Linux
 sdkmanager --install "system-images;android-29;google_apis;x86" "platforms;android-29" "build-tools;29.0.3"
 sdkmanager --licenses
 ```
@@ -788,8 +793,9 @@ sdkmanager --licenses
 
 Our final installation step is to grab the Flutter SDK.
 
+    On WSL2 Linux
+
 ```shell
-WSL2 Linux
 wget https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_1.22.5-stable.tar.xz -O flutter_latest.tar.xz
 tar xf flutter_latest.tar.xz
 mkdir ~/Flutter
@@ -801,8 +807,9 @@ flutter --version
 
 If everything went well, you should get Flutter's version
 
+    On WSL2 Linux
+
 ```shell
-WSL2 Linux
 Flutter 1.22.5 • channel stable • https://github.com/flutter/flutter.git
  Framework • revision 7891006299 (7 weeks ago) • 2020-12-10 11:54:40 -0800
  Engine • revision ae90085a84
@@ -811,8 +818,9 @@ Flutter 1.22.5 • channel stable • https://github.com/flutter/flutter.git
 
 WSL2 inherits the ENV variables from Windows. So if you already have an ENV for flutter, sdkmanager, etc… set in Windows, your WSL2 distro won't recognize the new paths. So, ensure that the tools point to the right destinations. If they do not, just adapt your export commands to append/prepend the paths.
 
+    On WSL2 Linux
+
 ```shell
-WSL2 Linux
 which sdkmanager
 which adb
 # these should point to ~/Android/Sdk/...
@@ -844,8 +852,9 @@ Finally we have everything ready, the only thing we need is a device to test our
 For now, unfortunately it's not possible to simply plugin in your phone via USB and have it connected to WSL2, but fortunately adb allows us to debug over WiFi, and that's what we're going to do. For that, connect your phone via USB and open up PowerShell.
 It's a small step in Windows adb…
 
+    On PowerShell
+
 ```shell
-PowerShell
 adb devices
 adb tcpip 5555
 
@@ -859,8 +868,9 @@ List of devices attached
 
 Now go back to WSL2 and enter the following
 
+    On WSL2 Linux
+
 ```shell
-WSL2 Linux
 adb connect <IP-of-your-phone>
 connected to <IP-of-your-phone>:5555
 
@@ -873,8 +883,9 @@ List of devices attached
 
 To verify that flutter also has access to the device, run the following command.
 
+    On WSL2 Linux
+
 ```shell
-WSL2 Linux
 flutter devices
 1 connected device:
  ONEPLUS A6013 (mobile) • <IP-of-your-phone>:5555 • android-arm64 • Android 10 (API 29)
