@@ -923,7 +923,20 @@ git remote set-url <name> <url>
 ## Correct previous commit message
 
 ```bash
-git commit --amend -m "New commit message"
+git commit --amend -m "[New commit message]"
+```
+
+### Sign(-off) a merge commit in Git
+
+```bash
+# To signoff a commit use -s
+git commit --amend --no-edit -s
+# To verify the signature use -S
+git commit --amend --no-edit -S
+# Or use -S and -s
+git commit --amend --no-edit -S -s
+# To also edit the commit message
+git commit --amend -S -s -m "[New message]"
 ```
 
 ## Merge two files
