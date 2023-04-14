@@ -304,6 +304,59 @@ Tick _apache2_ using **spacebar**, and **tab** to _\<OK>_.
 
 This information was taken from [askubuntu][2].
 
+## Nginx HTTP server
+
+### <span style="color:red;">open() "/run/nginx.pid" failed (13: Permission denied)</span>
+
+To avoid this error always run `nginx -t` as **sudo**
+
+```bash
+sudo nginx -t
+```
+
+If server is still down follow the following steps:
+
+1. Create a directory named nginx.service.d in /etc/systemd/system/:
+
+```bash
+sudo mkdir -p /etc/systemd/system/nginx.service.d
+```
+
+2. Add the following to /etc/systemd/system/nginx.service.d/override.conf:
+
+```conf
+[Service]
+ExecStartPost=/bin/sleep 0.1
+```
+
+3. Reload systemd manager configuration:
+
+```bash
+sudo systemctl daemon-reload
+```
+
+4. Restart NGINX:
+
+```bash
+sudo systemctl restart nginx
+```
+
+Copy and paste these commands (like above)
+
+```bash
+sudo mkdir -p /etc/systemd/system/nginx.service.d
+
+sudo echo "[Service]\nExecStartPost=/bin/sleep 0.1\n" > /etc/systemd/system/nginx.service.d/override.conf
+
+sudo systemctl daemon-reload
+
+sudo systemctl restart nginx
+```
+
+[Link to bug report](https://bugs.launchpad.net/ubuntu/+source/nginx/+bug/1581864)
+
+Taken from [ServerFault][12].
+
 # MariaDB
 
 To backup the database use the following command:
@@ -1053,3 +1106,4 @@ https://tex.stackexchange.com/a/230004
 [9]: https://docs.microsoft.com/en-us/windows/wsl/networking
 [10]: https://serverfault.com/a/1115773
 [11]: https://dnmc.in/2021/01/25/setting-up-flutter-natively-with-wsl2-vs-code-hot-reload/
+[12]: https://serverfault.com/a/1065479
