@@ -1,12 +1,12 @@
 ---
 title: "Blog - What I have learned"
 author: "Nelson Vieira"
-date: "19/01/2023"
+date: "14/03/2023"
 ---
 
 # Linux
 
-```
+```bash
 # File3 is File1 + File2
 cat File1 File1 > File3
 ```
@@ -15,7 +15,7 @@ cat File1 File1 > File3
 
 The simplest method to disable root user login is to change its shell from _/bin/bash_ or any other shell that permits user login to _/sbin/nologin_, in the _/etc/passwd_ file, which can be opened for editing using any command line editor, as shown below:
 
-```
+```bash
 sudo nano /etc/passwd
 ```
 
@@ -31,7 +31,8 @@ Save the file and close it.
 
 From now on, when **root** user logs in, it will be shown the message **"This account is currently not available."** This is the default message, but, you it can be changed to a custom message in the the file */etc/nologin.txt*.
 
-This method is only effective with programs that require a shell for user login, otherwise, sudo, ftp and email clients can access the root account.  
+This method is only effective with programs that require a shell for user login, otherwise, sudo, ftp and email clients can access the root account.
+
 This information was taken from [tecmint][1].
 
 ## Permissions
@@ -57,7 +58,7 @@ rwx | 111 | 1 | Read, write and execute permissions
 
 ## How to connect with PhpMyAdmin to the localhost via a Unix socket?
 
-```
+```php
 $socket = '/var/run/mysqld.sock'; // or: /tmp/mysqld.sock $db = new mysqli('localhost', 'username', 'password', "database", 3306, $socket); // $db = mysql_connect('localhost:'.$socket, 'username', 'password');
 ```
 
@@ -70,7 +71,7 @@ set
 
 ## Convert .pem to .crt and .key
 
-```
+```bash
 openssl x509 -outform der -in your-cert.pem -out your-cert.crt
 ```
 
@@ -78,7 +79,7 @@ openssl x509 -outform der -in your-cert.pem -out your-cert.crt
 
 ### Generic LAMP stack
 
-```
+```bash
 sudo dnf install httpd
 sudo dnf install php
 sudo dnf install mariadb-server
@@ -89,7 +90,7 @@ sudo dnf install sshd
 
 ### Usefull applications
 
-```
+```bash
 sudo dnf install firewalld
 sudo dnf install openssh
 sudo dnf install procps-ng curl file git
@@ -105,7 +106,7 @@ sudo chmod 777 /var/www/html
 
 ### Server permissions
 
-```
+```bash
 # "correct" server folders/files permissions
 sudo chown apache:apache -R /var/www/html
 sudo usermod -a -G groupname username
@@ -115,7 +116,7 @@ sudo find /var/www/html/ -type f -exec chmod 644 {} \;  # 600 for extra security
 
 ### Server permissions for sftp transfers
 
-```
+```bash
 # server folders/files permissions that allow sftp transfers
 sudo chown apache:apache -R /var/www/html
 sudo usermod -a -G groupname username
@@ -123,7 +124,7 @@ sudo find /var/www/html/ -type d -exec chmod 775 {} \;
 sudo find /var/www/html/ -type f -exec chmod 624 {} \;
 ```
 
-```
+```bash
 # copy files with ssh
 # with password
 sudo scp username@remoteHost:/remote/dir/file.txt /local/dir/
@@ -132,19 +133,19 @@ sudo scp -C -i ~/.ssh/id_rsa user@host:~/file.txt ~/
 sudo scp -i ~/.ssh/id_rsa FILENAME USER@SERVER:/home/USER/FILENAME
 ```
 
-```
+```bash
 # scripts
 sudo touch /usr/local/bin/script
 sudo nano /usr/local/bin/script
 sudo chmod +x /usr/local/bin/*
 ```
 
-```
+```bash
 # list running services
 systemctl list-units --type service
 ```
 
-```
+```bash
 sudo mariadb-dump db > db.sql
 mysql -u USERNAME -p DB_NAME < import_file.sql
 ```
@@ -154,13 +155,13 @@ mysql -u USERNAME -p DB_NAME < import_file.sql
 #### proxy_fcgi:error The timeout specified has expired: [...] AH01075: Error dispatching request to
 
 For [Fedora 35] ensure you have installed fast cgi and optionally php-fph:
-```
+```bash
 sudo dnf install mod_fcgid php-fpm
 ```
 
 Then, if no php-fpm, edit:
 
-```
+```bash
 sudo nano /etc/httpd/conf.d/fcgid.conf
 ```
 
@@ -173,7 +174,7 @@ Adding the lines:
 
 If php-fpm is installed edit/create:
 
-```
+```bash
 vi /etc/httpd/conf.modules.d/00-proxy_timeout.conf
 ```
 
@@ -188,7 +189,7 @@ https://stackoverflow.com/a/65935475
 
 ### Complete removal of phpMyAdmin
 
-```
+```bash
 sudo dnf remove phpmyadmin
 sudo rm -rf /etc/phpMyAdmin
 sudo rm -rf /var/lib/phpMyAdmin
@@ -202,7 +203,7 @@ Check /etc/hosts
 
 #### Complete removal of MariaDB
 
-```
+```bash
 sudo dnf remove mariadb mariadb-server
 sudo rm -rf /var/lib/mysql
 sudo rm -rf /usr/share/mariadb
@@ -216,7 +217,7 @@ sudo rm ~/.my.cnf
 
 First run this query
 
-```
+```sql
 SHOW VARIABLES LIKE '%char%';
 ```
 
@@ -232,7 +233,7 @@ Restart the server.
 
 On a fresh installation, using **mysql_secure_installation** without starting mariadb will make the server run with unix_socket, so the solution is:
 
-```
+```bash
 sudo systemctl start mariadb
 sudo mysql_secure_installation
 ```
@@ -246,7 +247,7 @@ And then:
 
 Another solution would be to delete contents from _/var/lib/mysql_:
 
-```
+```bash
 cd /var/lib/mysql
 sudo rm -rf *
 sudo systemctl start mariadb
@@ -254,7 +255,7 @@ sudo systemctl start mariadb
 
 #### <span style="color:red;">Access denied for user 'root@localhost' (using password:NO)</span>
 
-```
+```bash
 mysql -u root -p
 # if necessary remove root password
 SET PASSWORD FOR root@localhost=PASSWORD('');
@@ -262,7 +263,7 @@ SET PASSWORD FOR root@localhost=PASSWORD('');
 
 ## Ubuntu
 
-```
+```bash
 # generic LAMP stack
 sudo dnf install apache2
 sudo dnf install php
@@ -271,12 +272,12 @@ sudo dnf install phpmyadmin
 sudo dnf install sshd
 ```
 
-```
+```bash
 # usefull apps
 sudo apt install net-tools
 ```
 
-```
+```bash
 # http server
 sudo service apache2 start
 sudo service apache2 stop
@@ -293,7 +294,7 @@ sudo apachectl -t
 If this is happening, then maybe apache2 was not ticked during the phpMyAdmin installation screen. To confirm this, check for the presence of _/etc/apache2/conf.d/phpmyadmin_ file.
 Reconfigure phpMyAdmin with the following command:
 
-```
+```bash
 sudo dpkg-reconfigure phpmyadmin
 ```
 
@@ -307,7 +308,7 @@ This information was taken from [askubuntu][2].
 
 To backup the database use the following command:
 
-```
+```bash
 mysqldump -u root -p database_name > database_name.sql
 ```
 
@@ -315,7 +316,7 @@ mysqldump -u root -p database_name > database_name.sql
 
 Create symlinks for explorer.exe and vscode
 
-```
+```bash
 ln -s /mnt/c/Windows/explorer.exe /usr/local/bin/explorer.exe
 ln -s /mnt/c/Users/<User>/AppData/Local/Programs/Microsoft\ VS\ Code/bin/code /usr/local/bin/code
 ```
@@ -415,20 +416,20 @@ From a [Microsoft dev blog][5].
 
 Generic command:
 
-```
+```powershell
 netsh interface portproxy add v4tov4 listenport=8080 listenaddress=192.168.1.1 connectport=80 connectaddress=172.168.101.100
 ```
 From [WSL documentation][9].
 
 Using the following command it will automatically get both the IP address of the main windows machine and the WSL. You just need to adjust the `connectport` to connect to the right service you want to expose to the LAN.
 
-```
+```powershell
 netsh interface portproxy add v4tov4 listenport=8000 listenaddress=(Get-CimInstance -Class Win32_NetworkAdapterConfiguration).Where{$_.IPAddress}.foreach{$_.IPAddress[0]} connectport=3000 connectaddress=$($(wsl hostname -I).Trim())
 ```
 
 To delete previous proxy connection:
 
-```
+```powershell
 netsh interface portproxy delete v4tov4 listenport=8000 listenaddress=(Get-CimInstance -Class Win32_NetworkAdapterConfiguration).Where{$_.IPAddress}.foreach{$_.IPAddress[0]}
 ```
 
@@ -438,7 +439,7 @@ netsh interface portproxy delete v4tov4 listenport=8000 listenaddress=(Get-CimIn
 
 Let's install Flutter on our newly operational Ubuntu system. In your terminal, make a Development folder.
 
-```
+```bash
 mkdir Development
 ```
 
@@ -450,13 +451,13 @@ This is possible because the Ubuntu side considers Disk C (the disk where all Wi
 
 To extract the Flutter tar file out of the Downloads folder in Windows into the Development folder in Ubuntu, enter your terminal and navigate into the Development folder:
 
-```
+```bash
 cd Development
 ```
 
 Then run the below command:
 
-```
+```bash
 tar xf /mnt/c/Users/your-username/Downloads/flutter_linux_your-flutter-version-stable.tar.xz
 ```
 
@@ -464,19 +465,19 @@ Once the folder is extracted, add Flutter into your PATH by editing your shell's
 
 Navigate to the bottom of the file and add the path where your Flutter folder is found. In this tutorial, Flutter is saved in the Development folder meaning our path will look like the below:
 
-```
+```bash
 export PATH="$PATH:$HOME/Development/flutter/bin"
 ```
 
 Save and exit your file and then run the below command to refresh your terminal and implement the changes:
 
-```
+```bash
 source $HOME/.<rc file>
 ```
 
 You can then run which flutter to confirm that the Flutter command now works in your terminal. If there are no errors, you can run the below command to make sure everything is working as it should:
 
-```
+```bash
 flutter doctor
 ```
 
@@ -486,7 +487,7 @@ This will show a checklist that indicates what is working fine and what still ne
 
 We will install Android Studio directly to our Ubuntu side. Go to the terminal in the home directory and create a Downloads directory.
 
-```
+```bash
 mkdir Downloads
 ```
 
@@ -502,13 +503,13 @@ The picture shows a popup that opens to accept Android's terms and conditions an
 
 In your terminal, go to your newly created Downloads folder and type the wget command followed by the download link you just copied to get the Android Studio tar file:
 
-```
+```bash
 wget android-studio-download-link
 ```
 
 When the download has finished, navigate to /usr/local/ and extract the Android Studio tar file which will create an android-studio folder for your user profile:
 
-```
+```bash
 cd /usr/local/  
 tar xf ~/Downloads/android-studio-version-number-linux.tar.gz
 ```
@@ -622,31 +623,31 @@ To fix this error. you need to install `qemu-kvm` and add your username to the k
 
 Head over to your terminal and run the following command to install qemu-kvm:
 
-```
+```bash
 sudo apt install qemu-kvm
 ```
 
 Next, you need to add the user your-username to the kvm group using the following command:
 
-```
+```bash
 sudo adduser username kvm
 ```
 
 Next, in some cases, you also need to run the following command:
 
-```
+```bash
 sudo chown username /dev/kvm
 ```
 
 You can get your username using the following command:
 
-```
+```bash
 whoami
 ```
 
 Now, you can verify if your username is added to kvm group using the following command:
 
-```
+```bash
 grep kvm /etc/group
 ```
 
@@ -669,7 +670,7 @@ On WSL2 (Windows 11), nested virtualization is supported but not enabled by defa
 
 This one is easy:
 
-```
+```bash
 sudo usermod -a -G kvm ${USER}
 ```
 
@@ -677,7 +678,7 @@ sudo usermod -a -G kvm ${USER}
 
 This is also easy, but to make it stick across reboots and upgrades, add this section to your `/etc/wsl.conf` file:
 
-```
+```conf
 [boot]
 command = /bin/bash -c 'chown -v root:kvm /dev/kvm && chmod 660 /dev/kvm'
 ```
@@ -686,7 +687,7 @@ command = /bin/bash -c 'chown -v root:kvm /dev/kvm && chmod 660 /dev/kvm'
 
 You don't need to recompile your WSL distribution to enable nested virtualization, just add this section to your `/etc/wsl.conf`:
 
-```
+```conf
 [wsl2]
 nestedVirtualization=true
 ```
@@ -697,7 +698,7 @@ X^2^
 
 You can either restart Windows, or close all of your WSL terminal windows and issue this command in Powershell, CMD, or Windows Run menu (`Windows`+`R`)
 
-```
+```powershell
 wsl.exe --shutdown
 ```
 
@@ -730,7 +731,7 @@ This one is pretty simple and self explaining.
 
     On WSL2 Linux
 
-```shell
+```bash
 sudo apt update && sudo apt install default-jdk
 export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
 export PATH=$PATH:$JAVA_HOME/bin
@@ -743,7 +744,7 @@ These are crucial, since they come with the sdkmanager which we'll use to instal
 
     On WSL2 Linux
 
-```shell
+```bash
 mkdir -p ~/Android/Sdk/cmdline-tools
 wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip -O latest.zip
 unzip latest.zip
@@ -762,7 +763,7 @@ Next thing we need, are the platform-tools which include adb. As you may've gues
 
     On WSL2 Linux
 
-```shell
+```bash
 sdkmanager --install "platform-tools"
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 adb
@@ -772,10 +773,10 @@ If it's successfull, adb should output something along these lines.
 
     On WSL2 Linux
 
-```shell
-Android Debug Bridge version 1.0.41
-Version 30.0.5-6877874
-Installed as ~/Android/Sdk/platform-tools/adb
+```bash
+  Android Debug Bridge version 1.0.41
+  Version 30.0.5-6877874
+  Installed as ~/Android/Sdk/platform-tools/adb
 ```
 
 Build tools and Android images
@@ -784,7 +785,7 @@ As the last step of our Android setup, we grab the build-tools and images for An
 
     On WSL2 Linux
 
-```shell
+```bash
 sdkmanager --install "system-images;android-29;google_apis;x86" "platforms;android-29" "build-tools;29.0.3"
 sdkmanager --licenses
 ```
@@ -795,7 +796,7 @@ Our final installation step is to grab the Flutter SDK.
 
     On WSL2 Linux
 
-```shell
+```bash
 wget https://storage.googleapis.com/flutter_infra/releases/stable/linux/flutter_linux_1.22.5-stable.tar.xz -O flutter_latest.tar.xz
 tar xf flutter_latest.tar.xz
 mkdir ~/Flutter
@@ -809,7 +810,7 @@ If everything went well, you should get Flutter's version
 
     On WSL2 Linux
 
-```shell
+```bash
 Flutter 1.22.5 • channel stable • https://github.com/flutter/flutter.git
  Framework • revision 7891006299 (7 weeks ago) • 2020-12-10 11:54:40 -0800
  Engine • revision ae90085a84
@@ -820,7 +821,7 @@ WSL2 inherits the ENV variables from Windows. So if you already have an ENV for 
 
     On WSL2 Linux
 
-```shell
+```bash
 which sdkmanager
 which adb
 # these should point to ~/Android/Sdk/...
@@ -854,7 +855,7 @@ It's a small step in Windows adb…
 
     On PowerShell
 
-```shell
+```powershell
 adb devices
 adb tcpip 5555
 
@@ -870,7 +871,7 @@ Now go back to WSL2 and enter the following
 
     On WSL2 Linux
 
-```shell
+```bash
 adb connect <IP-of-your-phone>
 connected to <IP-of-your-phone>:5555
 
@@ -885,7 +886,7 @@ To verify that flutter also has access to the device, run the following command.
 
     On WSL2 Linux
 
-```shell
+```bash
 flutter devices
 1 connected device:
  ONEPLUS A6013 (mobile) • <IP-of-your-phone>:5555 • android-arm64 • Android 10 (API 29)
@@ -940,6 +941,7 @@ https://stackoverflow.com/a/61272173/6569950
 
 ## Stop and start `enumerate`
 
+```tex
 \newcounter{myenumi}
 \setcounter{myenumi}{0}
 
@@ -959,9 +961,11 @@ https://stackoverflow.com/a/61272173/6569950
 \setcounter{myenumi}{\value{enumi}}
 \end{enumerate}
 }
+```
 
 Then I do
 
+```tex
 \begin{myenumerate}
    \item this is item 1
    \item this is item 2
@@ -975,6 +979,7 @@ I could repeat this for more items if I wanted.
 \begin{myenumerate}
 \item This is back to item 1
 \end{myenumerate}
+```
 
 https://tex.stackexchange.com/a/230004
 
