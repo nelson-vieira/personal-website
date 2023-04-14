@@ -902,6 +902,52 @@ If you have further questions, let me know in the comments. I hope you enjoyed i
 
 From [Adis Durakovic's blog DNMC][11].
 
+# Git
+
+## Config options
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "youremail@yourdomain.com"
+
+git remote add origin https://github.com/gittower/example.git
+```
+
+## Update/Change remote url
+
+```bash
+git remote -v #Checks what is the current remote url
+git remote set-url <name> <url>
+```
+
+## Correct previous commit message
+
+```bash
+git commit --amend -m "New commit message"
+```
+
+## Merge two files
+
+```bash
+git merge-file master/newsletter2/file.html master/newsletter1/file.html master/newsletter2/file.html
+```
+
+## Revert to previous commit
+
+```bash
+git reset --hard <commit-hash>
+git push -f origin master
+```
+
+## Force .gitignore
+
+Commit any changes before doing this
+
+```bash
+git rm -rf --cached .
+git add .
+```
+
 # GitHub
 
 ## remove github-pages from Environments in GitHub repository
