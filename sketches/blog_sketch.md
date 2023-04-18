@@ -49,6 +49,22 @@ rw- | 110 | 1 | Read and write permissions
 rwx | 111 | 1 | Read, write and execute permissions
 <figcaption>Table 1. Permissions table</figcaption>
 
+## Port is already being used
+
+To see a list of processes using a port use:
+
+```bash
+# In this case port 80 is being used
+sudo lsof -i:80
+```
+
+Just change the port in the command below to whatever port is causing problems to kill all processes using it
+
+```bash
+# In this case port 80 is being used
+sudo fuser -k 80/tcp
+```
+
 ## Nano
 
 - Cursor at the beginning of a file
