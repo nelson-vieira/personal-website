@@ -1095,6 +1095,16 @@ I could repeat this for more items if I wanted.
 
 https://tex.stackexchange.com/a/230004
 
+# Ruby on Rails
+
+## Access credentials
+
+In the project folder use the following command:
+
+```bash
+EDITOR="code --wait" rails credentials:edit
+```
+
 [1]: https://www.tecmint.com/disable-root-login-in-linux/
 [2]: https://askubuntu.com/a/306130
 [3]: https://www.haveiplayedbowie.today/blog/posts/secure-localhost-with-mkcert/
