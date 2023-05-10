@@ -1121,6 +1121,16 @@ In the project folder use the following command:
 EDITOR="code --wait" rails credentials:edit
 ```
 
+## Capistrano
+
+### git@github.com: Permission denied (publickey)
+
+Run these commands
+```bash
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+```
+
 [1]: https://www.tecmint.com/disable-root-login-in-linux/
 [2]: https://askubuntu.com/a/306130
 [3]: https://www.haveiplayedbowie.today/blog/posts/secure-localhost-with-mkcert/
