@@ -1016,8 +1016,18 @@ git merge-file master/newsletter2/file.html master/newsletter1/file.html master/
 
 ## Revert to previous commit
 
+To revert to the last commit
+```bash
+git reset HEAD~
+```
+
+OR to revert to an older commit, change the \<commit-hash> to the commit you want to revert to
 ```bash
 git reset --hard <commit-hash>
+```
+
+Then you add the changes and commit again and force push if the previous changes have been pushed to remote. Carefull with the force option, only use it as a last resort
+```bash
 git push -f origin master
 ```
 
