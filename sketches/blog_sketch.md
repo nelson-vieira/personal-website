@@ -1121,6 +1121,21 @@ I could repeat this for more items if I wanted.
 
 https://tex.stackexchange.com/a/230004
 
+## Font sizes
+
+```tex
+\Huge
+\huge
+\LARGE
+\Large
+\large
+\normalsize
+\small
+\footnotesize
+\scriptsize
+\tiny
+```
+
 # Ruby on Rails
 
 ## Access credentials
