@@ -1,6 +1,7 @@
 {
-    "name": "personal-website",
-    "version": "0.0.1",
+    "name": "nelsonvieira.me",
+    "description": "The website and blog of Nelson Vieira, an informatics engineer that loves coding",
+    "version": "0.0.2",
     "private": true,
     "scripts": {
         "dev": "vite dev",
