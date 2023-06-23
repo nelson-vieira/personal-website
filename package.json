@@ -3,6 +3,7 @@
     "description": "The website and blog of Nelson Vieira, an informatics engineer that loves coding",
     "version": "0.0.2",
     "private": true,
+    "license" : "AGPL-3.0-or-later",
     "scripts": {
         "dev": "vite dev",
         "build": "vite build",
