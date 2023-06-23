@@ -1,9 +1,11 @@
----
-title: "Blog - What I have learned"
-author: "Nelson Vieira"
-date: "14/03/2023"
----
+<!---
+SPDX-License-Identifier: GPL-3.0-or-later
 
+Copyright (c) 2023 Nelson Vieira
+
+@author Nelson Vieira <hello@nelsonvieira.me>
+@license GPL-3.0 <https://www.gnu.org/licenses/gpl-3.0.txt>
+--->
 # Linux
 
 ```bash
