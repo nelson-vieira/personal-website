@@ -6,6 +6,10 @@ Copyright (c) 2023 Nelson Vieira
 @author Nelson Vieira <hello@nelsonvieira.me>
 @license AGPL-3.0 <https://www.gnu.org/licenses/agpl-3.0.txt>
 --->
+<svelte:head>
+	<title>Nelson Vieira</title>
+    <meta name="Description" content="Personal website with a blog of Nelson Vieira">
+</svelte:head>
 <script>
     import img from "$lib/assets/images/purple_and_yellow_abstract_painting.jpg";
 </script>
