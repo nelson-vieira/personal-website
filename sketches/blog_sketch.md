@@ -43,12 +43,12 @@ Permissions | Binary | Octal | Description
 ---|---|--- | ---
 \- | 000 | 0 | No permissions
 --x | 001 | 1 | Execute-only permission
--w- | 010 | 1 | Write-only permission
--wx | 011 | 1 | Write and execute permissions
-r-- | 100 | 1 | Read-only permission
-r-x | 101 | 1 | Read and execute permissions
-rw- | 110 | 1 | Read and write permissions
-rwx | 111 | 1 | Read, write and execute permissions
+-w- | 010 | 2 | Write-only permission
+-wx | 011 | 3 | Write and execute permissions
+r-- | 100 | 4 | Read-only permission
+r-x | 101 | 5 | Read and execute permissions
+rw- | 110 | 6 | Read and write permissions
+rwx | 111 | 7 | Read, write and execute permissions
 <figcaption>Table 1. Permissions table</figcaption>
 
 ## Port is already being used
