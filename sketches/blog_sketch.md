@@ -1138,7 +1138,6 @@ git add .
 
 ## remove github-pages from Environments in GitHub repository
 
-
 There doesn't seem to be UI for it, but you can do it using the GitHub API.
 
 You should probably disconnect GitHub and Heroku before doing this.
@@ -1231,6 +1230,14 @@ https://tex.stackexchange.com/a/230004
 ```
 
 # Ruby on Rails
+
+## has_and_belongs_to_many
+
+```ruby
+<%= form.fields_for :model, Model.new, child_index: "NEW_RECORD" do |model_fields| %>
+    <%= render partial: "model/model_fields",locals: { form: model_fields } %>
+<% end %>
+```
 
 ## Access credentials
 
