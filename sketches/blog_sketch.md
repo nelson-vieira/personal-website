@@ -1257,6 +1257,17 @@ eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa
 ```
 
+## Passenger
+
+### ArgumentError: parent directory is world writable, FileUtils#remove_entry_secure does not work
+
+This command might solve the issue
+```bash
+chmod o+t -R /tmp
+```
+
+From [SO][13].
+
 [1]: https://www.tecmint.com/disable-root-login-in-linux/
 [2]: https://askubuntu.com/a/306130
 [3]: https://www.haveiplayedbowie.today/blog/posts/secure-localhost-with-mkcert/
@@ -1269,3 +1280,4 @@ ssh-add ~/.ssh/id_rsa
 [10]: https://serverfault.com/a/1115773
 [11]: https://dnmc.in/2021/01/25/setting-up-flutter-natively-with-wsl2-vs-code-hot-reload/
 [12]: https://serverfault.com/a/1065479
+[13]: https://stackoverflow.com/questions/33812378/argumenterror-parent-directory-is-world-writable-fileutilsremove-entry-secure
