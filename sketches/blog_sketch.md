@@ -1229,6 +1229,23 @@ https://tex.stackexchange.com/a/230004
 \tiny
 ```
 
+## Beamer background image
+
+```tex
+% Global background
+{
+\usebackgroundtemplate{{\includegraphics[width=\paperwidth]{image.png}}}
+}
+
+% Local background
+{
+\usebackgroundtemplate{{\includegraphics[width=\paperwidth]{image.png}}}
+\begin{frame}
+    Some text...
+\end{frame}
+}
+```
+
 # Ruby on Rails
 
 ## has_and_belongs_to_many
