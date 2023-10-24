@@ -1268,6 +1268,26 @@ chmod o+t -R /tmp
 
 From [SO][13].
 
+## Active admin with importmap-rails
+
+In config/initializers/active_admin.rb add the following code:
+
+```ruby
+module ActiveAdmin::Views::Pages::Head
+    def build_active_admin_head
+        super
+        within head do
+            text_node(javascript_importmap_tags("application"))
+            # Add any other tag to head
+        end
+    end
+end
+
+class ActiveAdmin::Views::Pages::Base < Arbre::HTML::Document
+    prepend ActiveAdmin::Views::Pages::Head
+end
+```
+
 [1]: https://www.tecmint.com/disable-root-login-in-linux/
 [2]: https://askubuntu.com/a/306130
 [3]: https://www.haveiplayedbowie.today/blog/posts/secure-localhost-with-mkcert/
