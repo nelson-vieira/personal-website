@@ -1387,6 +1387,32 @@ However I believe for this to work, you need to include this module after all th
 
 Solutions by [Chedli Bourguiba][14].
 
+## Remove old versions of gems
+
+To list all installed gems and different versions
+
+```bash
+gem list
+```
+
+If the gem is not marked as default then simply run
+
+```bash
+gem uninstall GEM_NAME -v '9.9.9'
+```
+
+If gem is default, first you need to know where the gem is located
+
+```bash
+# This gives the GEM_PATH
+bundle show GEM_NAME
+    /home/USER/.rbenv/versions/9.9.9/lib/ruby/gems/9.9.9/gems/GEM_NAME-VERSION
+cd GEM_PATH/../../specifications/default
+mv GEM_NAME-VERSION.gemspec ../
+# or
+sudo rm -f GEM_NAME-VERSION.gemspec
+```
+
 [1]: https://www.tecmint.com/disable-root-login-in-linux/
 [2]: https://askubuntu.com/a/306130
 [3]: https://www.haveiplayedbowie.today/blog/posts/secure-localhost-with-mkcert/
