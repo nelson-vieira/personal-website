@@ -1410,7 +1410,13 @@ bundle show GEM_NAME
 cd GEM_PATH/../../specifications/default
 mv GEM_NAME-VERSION.gemspec ../
 # or
-sudo rm -f GEM_NAME-VERSION.gemspec
+mv GEM_PATH/../../specifications/default/GEM_NAME-VERSION.gemspec GEM_PATH/../../specifications/
+```
+
+and then
+
+```bash
+gem uninstall GEM_NAME -v '9.9.9'
 ```
 
 [1]: https://www.tecmint.com/disable-root-login-in-linux/
