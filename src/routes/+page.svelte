@@ -41,15 +41,15 @@ style="background-image: url({img}); background-size: cover; background-repeat: 
             <p class="m-0 p-0 border-0 text-[4.5vw] align-baseline
             text-white
             vsm:text-xl">
-                Coming soon&#8482;, for sure in the next 30 years.
+                Coming soon&#8482; in the next 30 years...
             </p>
             <br>
             <a href="https://github.com/nelson-vieira" class="m-0 p-0 border-0 text-[4.5vw] align-baseline
-            text-blue-500 underline
-            vsm:text-sm
-            sm:!text-base
-            visited:text-blue-500">
-                GitHub
+            text-gray-200 underline
+            vsm:text-base
+            sm:!text-3xl
+            visited:text-gray-200">
+                <i class="lni lni-github-original"></i>
             </a>
         </div>
     </div>
