@@ -19,27 +19,31 @@ Copyright (c) 2023 Nelson Vieira
     }
 </style>
 <div class="m-0 p-0 border-0 text-[100%] align-baseline
-relative w-screen h-screen" role="img" aria-label="Purple and yellow abstract painting"
+relative w-screen h-screen
+selection:text-blue-500 selection:bg-gray-50" role="img" aria-label="Purple and yellow abstract painting"
 style="background-image: url({img}); background-size: cover; background-repeat: no-repeat;">
     <div class="m-0 p-0 border-0 text-[100%] align-baseline
     flex flex-col flex-nowrap justify-center items-center w-screen h-screen text-center">
         <div id="titles" class="m-0 p-0 border-0 text-[100%] align-baseline">
             <h1 class="m-0 p-0 border-0 text-[4.5vw] align-baseline
             font-bold text-white
+            hover:text-gray-500 hover:bg-gray-800/20
             vsm:text-3xl">
                 Hi there, I'm Nelson Vieira
             </h1>
             <br>
             <h2 class="m-0 p-0 border-0 text-[4.5vw] align-baseline
             font-bold text-white
+            hover:text-gray-600 hover:bg-gray-800/20
             vsm:text-2xl">
-                Welcome to my website
+                Welcome to my domain
             </h2>
             <br>
         </div>
         <div id="content" class="m-0 p-0 border-0 text-[100%] align-baseline">
             <p class="m-0 p-0 border-0 text-[4.5vw] align-baseline
             text-white
+            hover:text-gray-700 hover:bg-gray-800/20
             vsm:text-xl">
                 Coming soon&#8482; in the next 30 years...
             </p>
@@ -48,7 +52,8 @@ style="background-image: url({img}); background-size: cover; background-repeat: 
             text-gray-200 underline
             vsm:text-base
             sm:!text-3xl
-            visited:text-gray-200">
+            hover:text-gray-800
+            visited:text-gray-200" title="GitHub">
                 <i class="lni lni-github-original"></i>
             </a>
         </div>
