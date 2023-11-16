@@ -8,7 +8,18 @@ Copyright (c) 2023 Nelson Vieira
 --->
 <svelte:head>
 	<title>Nelson Vieira</title>
-    <meta name="Description" content="Personal website with a blog of Nelson Vieira">
+    <meta name="Description" content="Personal website of Nelson Vieira" />
+    <meta property="og:url" content="https://nelsonvieira.me" />
+    <meta property="og:title" content="Nelson Vieira" />
+    <meta property="og:description" content="Personal website of Nelson Vieira" />
+    <meta property="og:type" content="website" />
+    <!-- <meta property="og:image" content="" />
+    <meta property="og:image:width" content="" />
+    <meta property="og:image:height" content="" /> -->
+    <meta name="twitter:title" content="Nelson Vieira">
+    <meta name="twitter:description" content="Personal website of Nelson Vieira">
+    <!-- <meta name="twitter:image" content="" />
+    <meta name="twitter:image:alt" content="" /> -->
 </svelte:head>
 <script>
     import img from "$lib/assets/images/purple_and_yellow_abstract_painting.jpg";
