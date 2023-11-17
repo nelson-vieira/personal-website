@@ -16,8 +16,8 @@ Copyright (c) 2023 Nelson Vieira
     <!-- <meta property="og:image" content="" />
     <meta property="og:image:width" content="" />
     <meta property="og:image:height" content="" /> -->
-    <meta name="twitter:title" content="Nelson Vieira">
-    <meta name="twitter:description" content="Personal website of Nelson Vieira">
+    <meta name="twitter:title" content="Nelson Vieira" />
+    <meta name="twitter:description" content="Personal website of Nelson Vieira" />
     <!-- <meta name="twitter:image" content="" />
     <meta name="twitter:image:alt" content="" /> -->
 </svelte:head>
