@@ -1255,6 +1255,25 @@ Use `\addcontentsline` after unnumbered chapter, section or subsection, like so:
 \addcontentsline{toc}{chapter}{Name of Chapter}
 ```
 
+## Error: Option clash for package xcolor
+
+Example of full error message:
+
+```tex
+    The package xcolor has already been loaded with options:
+      []
+    There has now been an attempt to load it with options
+      [divpsnames]
+```
+
+Workaround: add the following line before `\documentclass`
+
+```tex
+\PassOptionsToPackage{dvipsnames}{xcolor}
+```
+
+Package name might be different and options too. In this case, just substitute in the correct entries.
+
 # Ruby on Rails
 
 ## has_and_belongs_to_many
