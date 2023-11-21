@@ -1246,6 +1246,15 @@ https://tex.stackexchange.com/a/230004
 }
 ```
 
+## Make chapter*, section* and subsection* appear in the table of contents
+
+Use `\addcontentsline` after unnumbered chapter, section or subsection, like so:
+
+```tex
+\chapter*{Name of Chapter}
+\addcontentsline{toc}{chapter}{Name of Chapter}
+```
+
 # Ruby on Rails
 
 ## has_and_belongs_to_many
