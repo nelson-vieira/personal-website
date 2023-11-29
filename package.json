@@ -1,9 +1,19 @@
 {
-    "name": "nelsonvieira.me",
-    "description": "The website and blog of Nelson Vieira, an informatics engineer that loves coding",
-    "version": "0.0.3",
     "private": true,
+    "type": "module",
+    "name": "nelsonvieira.me",
+    "version": "0.0.3",
     "license" : "AGPL-3.0-or-later",
+    "description": "The website and blog of Nelson Vieira, an informatics engineer that loves coding",
+    "keywords": [
+        "personal website",
+        "portfolio",
+        "blog"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/nelson-vieira/personal-website.git"
+    },
     "scripts": {
         "dev": "vite dev",
         "build": "vite build",
@@ -38,6 +48,5 @@
         "typescript": "^5.0.0",
         "vite": "^4.2.0",
         "vitest": "^0.25.3"
-    },
-    "type": "module"
+    }
 }
