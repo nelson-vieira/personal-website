@@ -3,7 +3,7 @@
     "type": "module",
     "name": "nelsonvieira.me",
     "version": "0.0.3",
-    "license" : "AGPL-3.0-or-later",
+    "license": "AGPL-3.0-or-later",
     "description": "The website and blog of Nelson Vieira, an informatics engineer that loves coding",
     "keywords": [
         "personal website",
