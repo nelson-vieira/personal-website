@@ -1,0 +1,10 @@
+/* TEAM */
+    Everything: Nelson Vieira
+    Contact: hello [at] nelsonvieira.me
+    From: Madeira, Portugal
+
+/* SITE */
+    Last update:2023/11/13
+    Language: English
+    Doctype:HTML5
+    IDE: VS Code, Figma
