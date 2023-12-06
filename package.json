@@ -2,7 +2,7 @@
     "private": true,
     "type": "module",
     "name": "nelsonvieira.me",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "license": "AGPL-3.0-or-later",
     "description": "The website and blog of Nelson Vieira, an informatics engineer that loves coding",
     "keywords": [
