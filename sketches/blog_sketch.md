@@ -1274,6 +1274,18 @@ Workaround: add the following line before `\documentclass`
 
 Package name might be different and options too. In this case, just substitute in the correct entries.
 
+# Ruby
+
+## rbenv
+
+### ../libexec/rbenv: No such file or directory
+
+rbenv depends on symlinks, specifically, `bin/rbenv` is a symlink to `../libexec/rbenv`. When this happens it means the symlink was broken so it needs to be fixed with:
+
+```shell
+ln -svf ../libexec/rbenv ~/.rbenv/bin/rbenv
+```
+
 # Ruby on Rails
 
 ## has_and_belongs_to_many
