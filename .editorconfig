@@ -6,11 +6,11 @@
 # @license AGPL-3.0 <https://www.gnu.org/licenses/agpl-3.0.txt>
 root = true
 
+# Unix-style newlines with a newline ending every file
 [*]
-# Set default charset
 charset = utf-8
-# 4 space indentation
 indent_style = space
 indent_size = 4
 end_of_line = lf
 insert_final_newline = true
+trim_trailing_whitespace = false
