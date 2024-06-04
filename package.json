@@ -4,15 +4,25 @@
     "name": "nelsonvieira.me",
     "version": "0.0.4",
     "license": "AGPL-3.0-or-later",
-    "description": "The website and blog of Nelson Vieira, an informatics engineer that loves coding",
+    "author": {
+        "name": "Nelson Vieira",
+        "email": "hello@nelsonvieira.me",
+        "url": "https://nelsonvieira.me/"
+    },
+    "description": "The website and blog of Nelson Vieira, a software engineer that loves coding",
     "keywords": [
         "personal website",
         "portfolio",
         "blog"
     ],
+    "homepage": "https://github.com/nelson-vieira/personal-website",
     "repository": {
         "type": "git",
         "url": "https://github.com/nelson-vieira/personal-website.git"
+    },
+    "bugs": {
+        "url": "https://github.com/nelson-vieira/personal-website/issues",
+        "email": "hello@nelsonvieira.me"
     },
     "scripts": {
         "dev": "vite dev",
