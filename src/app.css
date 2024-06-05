@@ -8,3 +8,10 @@ SPDX-FileCopyrightText: Copyright 2023-2024 Nelson Vieira
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: "Perfect DOS VGA 437";
+    src: url('/perfect_dos_vga_437/Perfect\ DOS\ VGA\ 437.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
